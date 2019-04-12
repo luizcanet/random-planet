@@ -4,9 +4,9 @@ module.exports = function (grunt) {
       dev: {
         bsFiles: {
           src: [
-            'styles/*.css',
-            '*.js'
-            '*.html'
+            'src/styles/*.css',
+            'src/*.js',
+            'src/*.html'
           ]
         },
         options: {
