@@ -11,7 +11,13 @@ module.exports = function (grunt) {
         },
         options: {
           watchTask: true,
-          server: './src'
+          server: {
+            baseDir: './',
+            routes: {
+              '/random-planet': './src'
+            }
+          },
+          startPath: '/random-planet'
         }
       }
     },
