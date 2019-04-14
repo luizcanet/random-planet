@@ -5,6 +5,10 @@ let contentToCache = [
   '/random-planet/',
   '/random-planet/index.html',
   '/random-planet/index.js',
+  '/random-planet/service.js',
+  '/random-planet/component.js',
+  '/random-planet/templates/random-planet.js',
+  '/random-planet/templates/planet.js',
   '/random-planet/favicon.ico',
   '/random-planet/styles/main.css',
   '/random-planet/icons/icon-32.png',
@@ -18,8 +22,8 @@ let contentToCache = [
 ]
 
 // Installing Service Worker
-self.addEventListener('install', function (e) {
-  e.waitUntil(
+self.addEventListener('install', function (event) {
+  event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.addAll(contentToCache)
     })
@@ -27,12 +31,12 @@ self.addEventListener('install', function (e) {
 })
 
 // Fetching content using Service Worker
-self.addEventListener('fetch', function (e) {
-  e.respondWith(
-    caches.match(e.request).then(function (r) {
-      return r || fetch(e.request).then(function (response) {
+self.addEventListener('fetch', function (event) {
+  event.respondWith(
+    caches.match(event.request).then(function (r) {
+      return r || fetch(event.request).then(function (response) {
         return caches.open(CACHE_NAME).then(function (cache) {
-          cache.put(e.request, response.clone())
+          cache.put(event.request, response.clone())
           return response
         })
       })
@@ -41,8 +45,8 @@ self.addEventListener('fetch', function (e) {
 })
 
 // Clearing old cached files
-self.addEventListener('activate', function (e) {
-  e.waitUntil(
+self.addEventListener('activate', function (event) {
+  event.waitUntil(
     caches.keys().then(function (keyList) {
       return Promise.all(keyList.map(function (key) {
         if (CACHE_NAME.indexOf(key) === -1) {
