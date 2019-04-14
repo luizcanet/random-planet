@@ -22,20 +22,20 @@ let contentToCache = [
 ]
 
 // Installing Service Worker
-self.addEventListener('install', function (event) {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(contentToCache)
     })
   )
 })
 
 // Fetching content using Service Worker
-self.addEventListener('fetch', function (event) {
+self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(function (r) {
-      return r || fetch(event.request).then(function (response) {
-        return caches.open(CACHE_NAME).then(function (cache) {
+    caches.match(event.request).then(r => {
+      return r || fetch(event.request).then(response => {
+        return caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, response.clone())
           return response
         })
@@ -45,10 +45,10 @@ self.addEventListener('fetch', function (event) {
 })
 
 // Clearing old cached files
-self.addEventListener('activate', function (event) {
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(function (keyList) {
-      return Promise.all(keyList.map(function (key) {
+    caches.keys().then(keyList => {
+      return Promise.all(keyList.map(key => {
         if (CACHE_NAME.indexOf(key) === -1) {
           return caches.delete(key)
         }
