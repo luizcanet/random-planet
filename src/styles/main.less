@@ -11,7 +11,7 @@ body {
   color: #96CCD9;
   display: grid;
   font-family: sans-serif;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto 1fr;
   height: 100%;
   margin: 0;
   padding: 1em;
@@ -31,8 +31,15 @@ a:focus {
   color: #FFB100;
 }
 
+.page-header {
+  align-self: end;
+}
+
+.page-title {
+  text-shadow: white 0 0 1em;
+}
+
 .main-content {
-  align-self: center;
   width: 100%;
 }
 
@@ -43,7 +50,7 @@ random-planet {
 }
 
 .planet {
-  border: #96CCD9 solid 1px;
+  border: #96CCD9CC solid 1px;
   border-radius: 3px;
   opacity: 1;
   transform-origin: center center;
@@ -83,7 +90,7 @@ random-planet {
 }
 
 .planet__featured-in {
-  border-top: #96CCD9 solid 1px;
+  border-top: #96CCD9CC solid 1px;
   padding-top: 0.5em;
   padding-left: 0.5em;
 }
@@ -108,4 +115,16 @@ random-planet {
 .page-footer {
   font-size: 12px;
   margin-top: 2em;
+  align-self: end;
+}
+
+@media (min-width: 768px) {
+  body {
+    background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(images/bg-large.jpg) no-repeat center center;
+    justify-content: center;
+  }
+
+  .main-content {
+    width: ~'calc(768px - 2em)';
+  }
 }

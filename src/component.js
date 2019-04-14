@@ -24,7 +24,6 @@ export default class RandomPlanet extends HTMLElement {
         this.count = msg.data.count
         service.postMessage({ get: Math.floor((Math.random() * this.count) + 1) })
       } else {
-        console.log(msg.data)
         this.planet.innerHTML = planetTemplate(msg.data)
         this.planet.classList.remove('planet--loading')
       }
