@@ -11,6 +11,8 @@ let contentToCache = [
   '/random-planet/templates/planet.js',
   '/random-planet/favicon.ico',
   '/random-planet/styles/main.css',
+  '/random-planet/styles/images/bg-small.jpg',
+  '/random-planet/styles/images/bg-large.jpg',
   '/random-planet/icons/icon-32.png',
   '/random-planet/icons/icon-64.png',
   '/random-planet/icons/icon-96.png',
