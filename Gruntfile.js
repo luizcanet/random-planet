@@ -18,6 +18,18 @@ module.exports = function (grunt) {
               '/node_modules': './node_modules'
             }
           },
+          https: true,
+          startPath: '/random-planet'
+        }
+      },
+      stg: {
+        options: {
+          server: {
+            baseDir: './',
+            routes: { '/random-planet': './src' }
+          },
+          httpModule: 'http2',
+          https: true,
           startPath: '/random-planet'
         }
       }
@@ -32,6 +44,16 @@ module.exports = function (grunt) {
     watch: {
       files: 'src/styles/**/*.less',
       tasks: ['less']
+    },
+    copy: {
+      main: {
+        files: [
+          { expand: true, cwd: 'src', src: ['*', '!test.*'], dest: 'dist/', filter: 'isFile' },
+          { expand: true, cwd: 'src', src: ['icons/*.png'], dest: 'dist/' },
+          { expand: true, cwd: 'src', src: ['styles/**', '!styles/*.less'], dest: 'dist/' },
+          { expand: true, cwd: 'src', src: ['templates/*'], dest: 'dist/' }
+        ]
+      }
     }
   })
 
@@ -39,7 +61,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-browser-sync')
   grunt.loadNpmTasks('grunt-contrib-less')
   grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-contrib-copy')
 
   // define default task
-  grunt.registerTask('default', ['browserSync', 'watch'])
+  grunt.registerTask('default', ['less', 'browserSync:dev', 'watch'])
+  grunt.registerTask('build', ['less', 'copy'])
+  grunt.registerTask('stage', ['build', 'browserSync:stg'])
 }
