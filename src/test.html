@@ -6,8 +6,16 @@
     <link rel="manifest" href="manifest.webmanifest">
     <title>Random PLanet from Star Wars</title>
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="styles/main.css" />
-    <script src="index.js" type="module"></script>
+    <!-- link rel="stylesheet" href="styles/main.css" -->
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <style>
+      .page-header,
+      .main-content,
+      .page-footer {
+        display: none;
+      }
+    </style>
+    <script src="../../random-planet/index.js" type="module"></script>
   </head>
 
   <body>
@@ -36,5 +44,16 @@
       </div>
       Photo by Jeremy Perkins on Unsplash
     </footer>
+
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script>
+        var expect = chai.expect
+    </script>
+    <script src="test/spec.js"></script>
+    <script>
+        mocha.run()
+    </script>
   </body>
 </html>

@@ -14,7 +14,8 @@ module.exports = function (grunt) {
           server: {
             baseDir: './',
             routes: {
-              '/random-planet': './src'
+              '/random-planet': './src',
+              '/node_modules': './node_modules'
             }
           },
           startPath: '/random-planet'
