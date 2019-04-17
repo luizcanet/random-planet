@@ -54,6 +54,12 @@ module.exports = function (grunt) {
           { expand: true, cwd: 'src', src: ['templates/*'], dest: 'dist/' }
         ]
       }
+    },
+    'gh-pages': {
+      options: {
+        base: 'dist'
+      },
+      src: ['**']
     }
   })
 
@@ -62,9 +68,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-contrib-copy')
+  grunt.loadNpmTasks('grunt-gh-pages')
 
   // define default task
   grunt.registerTask('default', ['less', 'browserSync:dev', 'watch'])
   grunt.registerTask('build', ['less', 'copy'])
   grunt.registerTask('stage', ['build', 'browserSync:stg'])
+  grunt.registerTask('deploy', ['build', 'gh-pages'])
 }
