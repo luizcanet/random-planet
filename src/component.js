@@ -14,20 +14,35 @@ export default class RandomPlanet extends HTMLElement {
     this.nextButton = this.querySelector('.random-planet__next-button')
     this.planet = this.querySelector('.planet')
 
-    this.nextButton.addEventListener('click', event => {
-      this.planet.classList.add('planet--loading')
-      service.postMessage({ get: Math.floor((Math.random() * this.count) + 1) })
-    })
+    this.nextButton.addEventListener('click', () => { this.goToNext() })
+    service.addEventListener('message', msg => { this.messageHandler(msg) })
+  }
 
-    service.addEventListener('message', msg => {
-      if ('count' in msg.data) {
-        this.count = msg.data.count
-        service.postMessage({ get: Math.floor((Math.random() * this.count) + 1) })
-      } else {
-        this.planet.innerHTML = planetTemplate(msg.data)
-        this.planet.classList.remove('planet--loading')
-      }
-    })
+  goToNext () {
+    this.planet.classList.add('planet--loading')
+    service.postMessage({ get: this.getRandom() })
+  }
+
+  getRandom () {
+    return Math.floor((Math.random() * this.count) + 1)
+  }
+
+  updateCount (count) {
+    this.count = count
+  }
+
+  render (planet) {
+    this.planet.innerHTML = planetTemplate(planet)
+    this.planet.classList.remove('planet--loading')
+  }
+
+  messageHandler (msg) {
+    if ('count' in msg.data) {
+      this.updateCount(msg.data.count)
+      this.goToNext()
+    } else {
+      this.render(msg.data)
+    }
   }
 
   connectedCallback () {
