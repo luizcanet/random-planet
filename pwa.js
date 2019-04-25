@@ -1,5 +1,5 @@
 /* global self, caches, fetch */
-const CACHE_NAME = 'random-planet-1.0.0'
+const CACHE_NAME = 'random-planet-1.0.1'
 
 let contentToCache = [
   '/random-planet/',
